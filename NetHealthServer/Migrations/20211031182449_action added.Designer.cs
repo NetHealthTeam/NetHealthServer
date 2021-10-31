@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetHealthServer.Data.Context;
 
 namespace NetHealthServer.Migrations
 {
     [DbContext(typeof(NetHealthDbContext))]
-    partial class NetHealthDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211031182449_action added")]
+    partial class actionadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,36 +50,6 @@ namespace NetHealthServer.Migrations
                     b.ToTable("nutritions_diets");
                 });
 
-            modelBuilder.Entity("ExerciseWorkout", b =>
-                {
-                    b.Property<int>("ExercisesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkoutsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExercisesId", "WorkoutsId");
-
-                    b.HasIndex("WorkoutsId");
-
-                    b.ToTable("workouts_exercises");
-                });
-
-            modelBuilder.Entity("GymProgramWorkout", b =>
-                {
-                    b.Property<int>("GymProgramsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkoutsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GymProgramsId", "WorkoutsId");
-
-                    b.HasIndex("WorkoutsId");
-
-                    b.ToTable("gym_workouts");
-                });
-
             modelBuilder.Entity("NetHealthServer.Data.Entities.Action", b =>
                 {
                     b.Property<int>("Id")
@@ -113,45 +85,7 @@ namespace NetHealthServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Diet");
-                });
-
-            modelBuilder.Entity("NetHealthServer.Data.Entities.Exercise", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Calory")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("calory");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Exercise");
-                });
-
-            modelBuilder.Entity("NetHealthServer.Data.Entities.GymProgram", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Gym_program");
+                    b.ToTable("Diets");
                 });
 
             modelBuilder.Entity("NetHealthServer.Data.Entities.Meal", b =>
@@ -199,7 +133,7 @@ namespace NetHealthServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Nutrition_program");
+                    b.ToTable("NutritionPrograms");
                 });
 
             modelBuilder.Entity("NetHealthServer.Data.Entities.User", b =>
@@ -233,10 +167,6 @@ namespace NetHealthServer.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("gender");
 
-                    b.Property<int>("GymProgramId")
-                        .HasColumnType("int")
-                        .HasColumnName("gym_program_id");
-
                     b.Property<decimal>("Height")
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("height");
@@ -257,18 +187,22 @@ namespace NetHealthServer.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("weight");
 
+                    b.Property<int>("WorkoutProgramId")
+                        .HasColumnType("int")
+                        .HasColumnName("workout_program_id");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ActionId");
 
-                    b.HasIndex("GymProgramId");
-
                     b.HasIndex("NutritionProgramId");
+
+                    b.HasIndex("WorkoutProgramId");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("NetHealthServer.Data.Entities.Workout", b =>
+            modelBuilder.Entity("NetHealthServer.Data.Entities.WorkoutProgram", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -282,7 +216,7 @@ namespace NetHealthServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Workouts");
+                    b.ToTable("WorkoutPrograms");
                 });
 
             modelBuilder.Entity("DietMeal", b =>
@@ -315,36 +249,6 @@ namespace NetHealthServer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ExerciseWorkout", b =>
-                {
-                    b.HasOne("NetHealthServer.Data.Entities.Exercise", null)
-                        .WithMany()
-                        .HasForeignKey("ExercisesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NetHealthServer.Data.Entities.Workout", null)
-                        .WithMany()
-                        .HasForeignKey("WorkoutsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GymProgramWorkout", b =>
-                {
-                    b.HasOne("NetHealthServer.Data.Entities.GymProgram", null)
-                        .WithMany()
-                        .HasForeignKey("GymProgramsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NetHealthServer.Data.Entities.Workout", null)
-                        .WithMany()
-                        .HasForeignKey("WorkoutsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("NetHealthServer.Data.Entities.Meal", b =>
                 {
                     b.HasOne("NetHealthServer.Data.Entities.Action", "Action")
@@ -364,23 +268,23 @@ namespace NetHealthServer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NetHealthServer.Data.Entities.GymProgram", "GymProgram")
-                        .WithMany("Users")
-                        .HasForeignKey("GymProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("NetHealthServer.Data.Entities.NutritionProgram", "NutritProgram")
                         .WithMany("Users")
                         .HasForeignKey("NutritionProgramId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("NetHealthServer.Data.Entities.WorkoutProgram", "WorkProgram")
+                        .WithMany("Users")
+                        .HasForeignKey("WorkoutProgramId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Action");
 
-                    b.Navigation("GymProgram");
-
                     b.Navigation("NutritProgram");
+
+                    b.Navigation("WorkProgram");
                 });
 
             modelBuilder.Entity("NetHealthServer.Data.Entities.Action", b =>
@@ -390,12 +294,12 @@ namespace NetHealthServer.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("NetHealthServer.Data.Entities.GymProgram", b =>
+            modelBuilder.Entity("NetHealthServer.Data.Entities.NutritionProgram", b =>
                 {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("NetHealthServer.Data.Entities.NutritionProgram", b =>
+            modelBuilder.Entity("NetHealthServer.Data.Entities.WorkoutProgram", b =>
                 {
                     b.Navigation("Users");
                 });
