@@ -71,7 +71,7 @@ namespace NetHealthServer
             {
                 app.UseDeveloperExceptionPage();
             }
-            //app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
 
             app.UseRouting();
