@@ -10,7 +10,7 @@ namespace NetHealthServer.Repo.Abstract
     public interface IRegistrationRepo
     {
         public Task CreateUser(User user);
-        public Task CheckEmailExistance(string email);
+        public Task CheckEmailExistence(string email);
         public Task<int> GetActionId(string actionName);
         public Task CheckLoginCredentials(LoginRequest login);
     }

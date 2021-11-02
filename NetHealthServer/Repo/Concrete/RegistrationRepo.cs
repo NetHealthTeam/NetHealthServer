@@ -21,12 +21,12 @@ namespace NetHealthServer.Repo.Concrete
             this.netHealthDbContext = netHealthDbContext;
         }
 
-        public async Task CheckEmailExistance(string email)
+        public async Task CheckEmailExistence(string email)
         {
             var user = await netHealthDbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
             if (user != null)
             {
-                throw new CustomError("email_dublicate_error");
+                throw new CustomError("email_duplicate_error");
             }
         }
 

@@ -35,7 +35,7 @@ namespace NetHealthServer.Service.Concrete
 
         public async Task CreateUser(RegistrationRequest registrationRequest)
         {
-            await registrationRepo.CheckEmailExistance(registrationRequest.Email);
+            await registrationRepo.CheckEmailExistence(registrationRequest.Email);
             var hashedPassword = new PasswordHasher<object?>().HashPassword(null, registrationRequest.Password);
             var actionId = await registrationRepo.GetActionId(registrationRequest.ActionName);
             User user = new User()
