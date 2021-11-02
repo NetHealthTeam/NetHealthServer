@@ -46,6 +46,9 @@ namespace NetHealthServer
 
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<IRegistrationRepo, RegistrationRepo>();
+            services.AddScoped<IActionRepo, ActionRepo>();
+            services.AddScoped<IUserRepo, UserRepo>();
+            services.AddScoped<IUserService, UserService>();
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
