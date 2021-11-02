@@ -36,8 +36,13 @@ namespace NetHealthServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContextPool<NetHealthDbContext>(options => options.UseSqlServer("Server=DESKTOP-OK5RUIF;Database=NetHealthDatabase;Trusted_Connection=True;"));
-            
+            services.AddDbContextPool<NetHealthDbContext>(options => options.UseMySql(
+                "server=localhost;database=nethealthdatabase;user=root;password=root;port=3306;Connect Timeout=5;",
+            new MySqlServerVersion(new Version(8, 0, 11)))
+
+                );
+
+
 
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<IRegistrationRepo, RegistrationRepo>();
