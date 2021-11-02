@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -6,11 +7,18 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using NetHealthServer.Data.Context;
+using NetHealthServer.Jwt;
 using NetHealthServer.Middlewares;
+using NetHealthServer.Repo.Abstract;
+using NetHealthServer.Repo.Concrete;
+using NetHealthServer.Service.Abstract;
+using NetHealthServer.Service.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace NetHealthServer
@@ -29,6 +37,26 @@ namespace NetHealthServer
         {
             services.AddControllers();
             services.AddDbContextPool<NetHealthDbContext>(options => options.UseSqlServer("Server=DESKTOP-OK5RUIF;Database=NetHealthDatabase;Trusted_Connection=True;"));
+            
+
+            services.AddScoped<IRegistrationService, RegistrationService>();
+            services.AddScoped<IRegistrationRepo, RegistrationRepo>();
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x => {
+                x.RequireHttpsMetadata = false; x.SaveToken = true; x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("kibrit1999+kibrit")),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+
+
+                };
+            });
+            services.AddSingleton<IJwtAuthenticationManager>(new JwtAuthenticationManager("kibrit1999+kibrit"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,12 +66,17 @@ namespace NetHealthServer
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+            //app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
+            app.UseCors(builder => builder
+ .AllowAnyOrigin()
+ .AllowAnyMethod()
+ .AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {

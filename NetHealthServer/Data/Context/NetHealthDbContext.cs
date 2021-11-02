@@ -21,6 +21,7 @@ namespace NetHealthServer.Data.Context
         public DbSet<Meal> Meals { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<Workout> Workouts { get; set; }
+        public DbSet<Entities.Action> Actions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<NutritionProgram>().HasMany(p => p.Diets).WithMany(p => p.NutritionPrograms).UsingEntity(j => j.ToTable("nutritions_diets"));
