@@ -17,5 +17,6 @@ namespace NetHealthServer.Data.Entities
         public string Name { get; set; }
         public List<Meal> Meals { get; set; }
         public List<User> Users { get; set; }
+        public List<NutritionProgram> NutritionPrograms { get; set; }
     }
 }

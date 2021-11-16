@@ -2,20 +2,52 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetHealthServer.Data.Context;
 
 namespace NetHealthServer.Migrations
 {
     [DbContext(typeof(NetHealthDbContext))]
-    partial class NetHealthDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211115194237_column name change")]
+    partial class columnnamechange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.11");
+
+            modelBuilder.Entity("DietMeal", b =>
+                {
+                    b.Property<int>("DietsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MealsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DietsId", "MealsId");
+
+                    b.HasIndex("MealsId");
+
+                    b.ToTable("diets_meals");
+                });
+
+            modelBuilder.Entity("DietNutritionProgram", b =>
+                {
+                    b.Property<int>("DietsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NutritionProgramsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DietsId", "NutritionProgramsId");
+
+                    b.HasIndex("NutritionProgramsId");
+
+                    b.ToTable("nutritions_diets");
+                });
 
             modelBuilder.Entity("ExerciseWorkout", b =>
                 {
@@ -81,14 +113,6 @@ namespace NetHealthServer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Diet");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            Name = "monday_first_menu",
-                            WeekDay = (short)2
-                        });
                 });
 
             modelBuilder.Entity("NetHealthServer.Data.Entities.Exercise", b =>
@@ -134,13 +158,9 @@ namespace NetHealthServer.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    b.Property<int?>("ActionId")
+                    b.Property<int>("ActionId")
                         .HasColumnType("int")
                         .HasColumnName("action_id");
-
-                    b.Property<string>("Amount")
-                        .HasColumnType("longtext")
-                        .HasColumnName("amount");
 
                     b.Property<decimal>("Calory")
                         .HasColumnType("decimal(65,30)")
@@ -167,48 +187,6 @@ namespace NetHealthServer.Migrations
                     b.HasIndex("ActionId");
 
                     b.ToTable("Meals");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 7,
-                            Amount = "80",
-                            Calory = 267.2m,
-                            ImageUrl = "https://images.eatthismuch.com/site_media/img/1112_erin_m_82150710-3374-4cb8-94cc-7071559fce2b.png",
-                            MealUrl = "https://www.eatthismuch.com/food/nutrition/oatmeal,1112/",
-                            Name = "Oatmeal",
-                            TimeOfDay = (short)1
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Amount = "140",
-                            Calory = 221.2m,
-                            ImageUrl = "https://images.eatthismuch.com/site_media/img/4857_laurabedo_da2c9648-14a9-47fd-bff3-3c1d66ad3fa7.png",
-                            MealUrl = "https://www.eatthismuch.com/food/nutrition/macaroni,4857/",
-                            Name = "Macaroni",
-                            TimeOfDay = (short)2
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Amount = "168",
-                            Calory = 154.6m,
-                            ImageUrl = "https://images.eatthismuch.com/site_media/img/4778_cyberchristie_6edef096-491d-4559-8df0-3281552ba4af.png",
-                            MealUrl = "https://www.eatthismuch.com/food/nutrition/buckwheat-groats,4778/",
-                            Name = "Buckwheat groats",
-                            TimeOfDay = (short)2
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Amount = "555",
-                            Calory = 253m,
-                            ImageUrl = "https://images.eatthismuch.com/site_media/img/45207_tabitharwheeler_50bb20bd-abb6-4373-90d6-dece7b636b16.jpg",
-                            MealUrl = "https://www.eatthismuch.com/recipe/nutrition/perfect-steamed-rice,45207/",
-                            Name = "Perfect Steamed Rice",
-                            TimeOfDay = (short)3
-                        });
                 });
 
             modelBuilder.Entity("NetHealthServer.Data.Entities.NutritionProgram", b =>
@@ -231,14 +209,6 @@ namespace NetHealthServer.Migrations
                     b.HasIndex("ActionId");
 
                     b.ToTable("Nutrition_program");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            ActionId = 1,
-                            Name = "first_up"
-                        });
                 });
 
             modelBuilder.Entity("NetHealthServer.Data.Entities.User", b =>
@@ -326,63 +296,34 @@ namespace NetHealthServer.Migrations
                     b.ToTable("Workouts");
                 });
 
-            modelBuilder.Entity("diets_meals", b =>
+            modelBuilder.Entity("DietMeal", b =>
                 {
-                    b.Property<int>("DietId")
-                        .HasColumnType("int");
+                    b.HasOne("NetHealthServer.Data.Entities.Diet", null)
+                        .WithMany()
+                        .HasForeignKey("DietsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("MealId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DietId", "MealId");
-
-                    b.HasIndex("MealId");
-
-                    b.ToTable("diets_meals");
-
-                    b.HasData(
-                        new
-                        {
-                            DietId = 2,
-                            MealId = 7
-                        },
-                        new
-                        {
-                            DietId = 2,
-                            MealId = 8
-                        },
-                        new
-                        {
-                            DietId = 2,
-                            MealId = 9
-                        },
-                        new
-                        {
-                            DietId = 2,
-                            MealId = 10
-                        });
+                    b.HasOne("NetHealthServer.Data.Entities.Meal", null)
+                        .WithMany()
+                        .HasForeignKey("MealsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("nutrutions_diets", b =>
+            modelBuilder.Entity("DietNutritionProgram", b =>
                 {
-                    b.Property<int>("DietId")
-                        .HasColumnType("int");
+                    b.HasOne("NetHealthServer.Data.Entities.Diet", null)
+                        .WithMany()
+                        .HasForeignKey("DietsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("NutritionProgramId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DietId", "NutritionProgramId");
-
-                    b.HasIndex("NutritionProgramId");
-
-                    b.ToTable("nutrutions_diets");
-
-                    b.HasData(
-                        new
-                        {
-                            DietId = 2,
-                            NutritionProgramId = 2
-                        });
+                    b.HasOne("NetHealthServer.Data.Entities.NutritionProgram", null)
+                        .WithMany()
+                        .HasForeignKey("NutritionProgramsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ExerciseWorkout", b =>
@@ -419,7 +360,9 @@ namespace NetHealthServer.Migrations
                 {
                     b.HasOne("NetHealthServer.Data.Entities.Action", "Action")
                         .WithMany("Meals")
-                        .HasForeignKey("ActionId");
+                        .HasForeignKey("ActionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Action");
                 });
@@ -452,36 +395,6 @@ namespace NetHealthServer.Migrations
                     b.Navigation("GymProgram");
 
                     b.Navigation("NutritProgram");
-                });
-
-            modelBuilder.Entity("diets_meals", b =>
-                {
-                    b.HasOne("NetHealthServer.Data.Entities.Diet", null)
-                        .WithMany()
-                        .HasForeignKey("DietId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NetHealthServer.Data.Entities.Meal", null)
-                        .WithMany()
-                        .HasForeignKey("MealId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("nutrutions_diets", b =>
-                {
-                    b.HasOne("NetHealthServer.Data.Entities.Diet", null)
-                        .WithMany()
-                        .HasForeignKey("DietId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NetHealthServer.Data.Entities.NutritionProgram", null)
-                        .WithMany()
-                        .HasForeignKey("NutritionProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("NetHealthServer.Data.Entities.Action", b =>

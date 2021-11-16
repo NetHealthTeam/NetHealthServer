@@ -20,7 +20,7 @@ namespace NetHealthServer.Repo.Concrete
         }
         public async Task<User> GetUserByEmail(string email)
         {
-            var user = await netHeakthDbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
+            var user = await netHeakthDbContext.Users.Include(x=>x.NutritProgram).ThenInclude(x=>x.Diets).ThenInclude(x=>x.Meals).FirstOrDefaultAsync(x=>x.Email==email);
             if (user == null)
             {
                 throw new CustomError("user_not_found");

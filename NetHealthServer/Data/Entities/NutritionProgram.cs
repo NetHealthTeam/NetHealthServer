@@ -15,6 +15,8 @@ namespace NetHealthServer.Data.Entities
         [Column("name")]
 
         public string Name { get; set; }
+        [Column("action_id")]
+        public int ActionId { get; set; }
         public List<User> Users { get; set; }
         public List<Diet> Diets { get; set; }
     }

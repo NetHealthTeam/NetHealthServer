@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace NetHealthServer.Service.Abstract
 {
-    public interface IUserService
+   public interface IDietService
     {
-        public Task<UserResponse> GetPersonalCabinet(string email);
-        public Task<User> GetUser(string email);
+        public Task<DietResponse> GetDailyDiet(User user);
     }
 }

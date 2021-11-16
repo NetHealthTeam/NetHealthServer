@@ -1,4 +1,5 @@
-﻿using NetHealthServer.Model.Response;
+﻿using NetHealthServer.Errors;
+using NetHealthServer.Model.Response;
 using NetHealthServer.Repo.Abstract;
 using NetHealthServer.Service.Abstract;
 using System;
@@ -39,6 +40,17 @@ namespace NetHealthServer.Service.Concrete
 
             };
             return userResponse;
+        }
+
+        public async Task<Data.Entities.User> GetUser(string email)
+        {
+            var user = await userRepo.GetUserByEmail(email);
+            if (user == null)
+            {
+                throw new CustomError("user_not_found");
+            }
+            
+            return user;
         }
     }
 }

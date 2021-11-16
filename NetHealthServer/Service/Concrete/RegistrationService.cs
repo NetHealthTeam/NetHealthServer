@@ -16,11 +16,13 @@ namespace NetHealthServer.Service.Concrete
     {
         private readonly IRegistrationRepo registrationRepo;
         private readonly IJwtAuthenticationManager authenticationManager;
+        private readonly INutritionRepo nutritionRepo;
 
-        public RegistrationService(IRegistrationRepo registrationRepo, IJwtAuthenticationManager authenticationManager)
+        public RegistrationService(IRegistrationRepo registrationRepo, IJwtAuthenticationManager authenticationManager,INutritionRepo nutritionRepo)
         {
             this.registrationRepo = registrationRepo;
             this.authenticationManager = authenticationManager;
+            this.nutritionRepo = nutritionRepo;
         }
 
         public async Task<LoginResponse> Login(LoginRequest login)
@@ -38,6 +40,8 @@ namespace NetHealthServer.Service.Concrete
             await registrationRepo.CheckEmailExistence(registrationRequest.Email);
             var hashedPassword = new PasswordHasher<object?>().HashPassword(null, registrationRequest.Password);
             var actionId = await registrationRepo.GetActionId(registrationRequest.ActionName);
+            var dailyCalory = await  CalculateDailyCalory(registrationRequest);
+            var nutritionProgram = await nutritionRepo.GetNutritionProgram(actionId);
             User user = new User()
             {
                 Email = registrationRequest.Email,
@@ -49,13 +53,36 @@ namespace NetHealthServer.Service.Concrete
                 Height = registrationRequest.Height,
                 NumberOfMeals = registrationRequest.NumberOfMeals,
                 NumberOfGyms = registrationRequest.NumberOfGyms,
-                AmountOfCalories = registrationRequest.AmountOfCalories,
+                AmountOfCalories = dailyCalory,
                 ActionId=actionId,
-                NutritionProgramId=null,
-                GymProgramId=null,
-                
+                NutritionProgramId=nutritionProgram.Id,
+                NutritProgram=nutritionProgram,
+                GymProgramId=null,     
             };
             await registrationRepo.CreateUser(user);
+        }
+        private  Task<decimal> CalculateDailyCalory(RegistrationRequest registrationRequest)
+        {
+            decimal bmr = 0;
+            bmr = 10 * registrationRequest.Weight + (decimal)6.25 * registrationRequest.Height * 100 - 5 * registrationRequest.Age;
+            if (registrationRequest.Gender=="Male")
+            {
+                bmr += 5;
+            }
+            else
+            {
+                bmr -= 161;
+            }
+            bmr *= (decimal)1.375;
+            if (registrationRequest.ActionName == "up")
+            {
+                bmr += 300;
+            }
+            else
+            {
+                bmr -= 300;
+            }
+            return Task.FromResult(bmr);
         }
     }
 }
