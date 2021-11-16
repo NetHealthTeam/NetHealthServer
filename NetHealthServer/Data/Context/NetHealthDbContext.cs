@@ -67,15 +67,15 @@ namespace NetHealthServer.Data.Context
             };
 
             modelBuilder.Entity<Entities.Action>().HasData(
-                new Entities.Action()
-                {
-                    Id = 1,
-                    Name = "up"
-                },
-                new Entities.Action() { 
-                Id=2,
-                Name="down"
-                });
+                //new Entities.Action()
+                //{
+                //    Id = 1,
+                //    Name = "up"
+                //},
+                //new Entities.Action() { 
+                //Id=2,
+                //Name="down"
+                //});
             modelBuilder.Entity<Diet>().HasData(
                 diet
                 );
