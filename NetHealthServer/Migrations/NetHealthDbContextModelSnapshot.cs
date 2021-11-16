@@ -61,6 +61,18 @@ namespace NetHealthServer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Action");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "up"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "down"
+                        });
                 });
 
             modelBuilder.Entity("NetHealthServer.Data.Entities.Diet", b =>

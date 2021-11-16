@@ -9,8 +9,8 @@ using NetHealthServer.Data.Context;
 namespace NetHealthServer.Migrations
 {
     [DbContext(typeof(NetHealthDbContext))]
-    [Migration("20211116173716_Seed-data added")]
-    partial class Seeddataadded
+    [Migration("20211116183117_adding seed data")]
+    partial class addingseeddata
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,6 +63,18 @@ namespace NetHealthServer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Action");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "up"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "down"
+                        });
                 });
 
             modelBuilder.Entity("NetHealthServer.Data.Entities.Diet", b =>

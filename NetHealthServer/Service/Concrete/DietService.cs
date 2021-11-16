@@ -68,8 +68,8 @@ namespace NetHealthServer.Service.Concrete
                         TimeOfDay=meal.TimeOfDay,
                         ImageUrl=meal.ImageUrl,
                         MealUrl=meal.MealUrl,
-                        Porsion=(user.AmountOfCalories*percentageOfMeal)/meal.Calory
-                    
+                        Porsion= Math.Round((user.AmountOfCalories * percentageOfMeal) / meal.Calory * 2, MidpointRounding.AwayFromZero) / 2
+
                     };
                     mealModels.Add(mealModel);
                     percentageOfMeal = (decimal)0.2;
@@ -96,7 +96,7 @@ namespace NetHealthServer.Service.Concrete
                         TimeOfDay = meal.TimeOfDay,
                         ImageUrl = meal.ImageUrl,
                         MealUrl = meal.MealUrl,
-                        Porsion = (user.AmountOfCalories * percentageOfMeal) / meal.Calory
+                        Porsion = Math.Round((user.AmountOfCalories * percentageOfMeal) / meal.Calory * 2, MidpointRounding.AwayFromZero) / 2 
 
                     };
                     mealModels.Add(mealModel);

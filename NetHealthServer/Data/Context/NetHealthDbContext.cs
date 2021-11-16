@@ -27,16 +27,55 @@ namespace NetHealthServer.Data.Context
             modelBuilder.Entity<Workout>().HasMany(p => p.GymPrograms).WithMany(p => p.Workouts).UsingEntity(j => j.ToTable("gym_workouts"));
             modelBuilder.Entity<Exercise>().HasMany(p => p.Workouts).WithMany(p => p.Exercises).UsingEntity(j => j.ToTable("workouts_exercises"));
            
+           
+            modelBuilder.Entity<NutritionProgram>().HasMany(p => p.Diets).WithMany(p => p.NutritionPrograms).UsingEntity<Dictionary<string, object>>(
+                "nutrutions_diets",
+                r => r.HasOne<Diet>().WithMany().HasForeignKey("DietId"),
+                 l => l.HasOne<NutritionProgram>().WithMany().HasForeignKey("NutritionProgramId"),
+                  je =>
+                  {
+                      je.HasKey("DietId", "NutritionProgramId");
+                      je.HasData(
+                          new { DietId = 2, NutritionProgramId = 2 });
+                        
+
+
+                  }
+                );
+            modelBuilder.Entity<Meal>().HasMany(p => p.Diets).WithMany(p => p.Meals).UsingEntity<Dictionary<string, object>>(
+                "diets_meals",
+                r => r.HasOne<Diet>().WithMany().HasForeignKey("DietId"),
+                 l => l.HasOne<Meal>().WithMany().HasForeignKey("MealId"),
+                  je =>
+                  {
+                      je.HasKey("DietId", "MealId");
+                      je.HasData(
+                          new { DietId = 2, MealId = 7 },
+                          new { DietId = 2, MealId = 8 },
+                          new { DietId = 2, MealId = 9 },
+                          new { DietId = 2, MealId = 10 });
+                          
+                  }
+                );
             Diet diet = new Diet()
             {
                 Id = 2,
                 Name = "monday_first_menu",
                 WeekDay = 2,
-               
+
 
             };
 
-
+            modelBuilder.Entity<Entities.Action>().HasData(
+                new Entities.Action()
+                {
+                    Id = 1,
+                    Name = "up"
+                },
+                new Entities.Action() { 
+                Id=2,
+                Name="down"
+                });
             modelBuilder.Entity<Diet>().HasData(
                 diet
                 );
@@ -101,37 +140,8 @@ namespace NetHealthServer.Data.Context
                 nutritionProgram
 
                 );
-            modelBuilder.Entity<NutritionProgram>().HasMany(p => p.Diets).WithMany(p => p.NutritionPrograms).UsingEntity<Dictionary<string, object>>(
-                "nutrutions_diets",
-                r => r.HasOne<Diet>().WithMany().HasForeignKey("DietId"),
-                 l => l.HasOne<NutritionProgram>().WithMany().HasForeignKey("NutritionProgramId"),
-                  je =>
-                  {
-                      je.HasKey("DietId", "NutritionProgramId");
-                      je.HasData(
-                          new { DietId = 2, NutritionProgramId = 2 });
-                        
 
 
-                  }
-                );
-            modelBuilder.Entity<Meal>().HasMany(p => p.Diets).WithMany(p => p.Meals).UsingEntity<Dictionary<string, object>>(
-                "diets_meals",
-                r => r.HasOne<Diet>().WithMany().HasForeignKey("DietId"),
-                 l => l.HasOne<Meal>().WithMany().HasForeignKey("MealId"),
-                  je =>
-                  {
-                      je.HasKey("DietId", "MealId");
-                      je.HasData(
-                          new { DietId = 2, MealId = 7 },
-                          new { DietId = 2, MealId = 8 },
-                          new { DietId = 2, MealId = 9 },
-                          new { DietId = 2, MealId = 10 });
-                          
-                  }
-                );
-             
-            
 
         }
 
