@@ -74,13 +74,13 @@ namespace NetHealthServer.Service.Concrete
                 bmr -= 161;
             }
             bmr *= (decimal)1.375;
-            if (registrationRequest.ActionName == "up")
+            if (registrationRequest.ActionName == "Gain Weight")
             {
                 bmr += 300;
             }
             else
             {
-                bmr -= 300;
+                bmr -= 500;
             }
             return Task.FromResult(bmr);
         }
