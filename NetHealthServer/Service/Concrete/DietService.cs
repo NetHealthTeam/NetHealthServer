@@ -63,6 +63,7 @@ namespace NetHealthServer.Service.Concrete
                     }
 
                     MealModel mealModel = new MealModel() { 
+                        Id=meal.Id,
                         Name=meal.Name,
                         CaloryPerPorsion=meal.Calory,
                         TimeOfDay=meal.TimeOfDay,
@@ -91,6 +92,7 @@ namespace NetHealthServer.Service.Concrete
                     var meal = meals.FirstOrDefault(x => x.TimeOfDay == i);
                     MealModel mealModel = new MealModel()
                     {
+                        Id=meal.Id,
                         Name = meal.Name,
                         CaloryPerPorsion = meal.Calory,
                         TimeOfDay = meal.TimeOfDay,
