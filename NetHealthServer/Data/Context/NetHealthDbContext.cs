@@ -36,7 +36,14 @@ namespace NetHealthServer.Data.Context
                   {
                       je.HasKey("DietId", "NutritionProgramId");
                       je.HasData(
-                          new { DietId = 2, NutritionProgramId = 2 });
+                          new { DietId = 2, NutritionProgramId = 2 },
+                          new { DietId = 3, NutritionProgramId = 3 }
+
+
+
+
+
+                          );
                         
 
 
@@ -53,31 +60,43 @@ namespace NetHealthServer.Data.Context
                           new { DietId = 2, MealId = 7 },
                           new { DietId = 2, MealId = 8 },
                           new { DietId = 2, MealId = 9 },
-                          new { DietId = 2, MealId = 10 });
+                          new { DietId = 2, MealId = 10 },
+                          new { DietId = 3, MealId = 7 },
+                          new { DietId = 3, MealId = 8 },
+                          new { DietId = 3, MealId = 9 },
+                          new { DietId = 3, MealId = 10 });
                           
                   }
                 );
             Diet diet = new Diet()
             {
                 Id = 2,
-                Name = "monday_first_menu",
-                WeekDay = 2,
+                Name = "wednesday_gain_menu",
+                WeekDay = 3,
 
 
             };
 
             modelBuilder.Entity<Entities.Action>().HasData(
-                //new Entities.Action()
-                //{
-                //    Id = 1,
-                //    Name = "up"
-                //},
-                //new Entities.Action() { 
-                //Id=2,
-                //Name="down"
-                //});
+                new Entities.Action()
+                {
+                    Id = 1,
+                    Name = "Loose Weight"
+                },
+                new Entities.Action()
+                {
+                    Id = 2,
+                    Name = "Gain Weight"
+                });
             modelBuilder.Entity<Diet>().HasData(
-                diet
+                diet,
+                new Diet()
+                {
+                    Id=3,
+                    Name="wednesday_loose_menu",
+                    WeekDay=3
+
+                }
                 );
             modelBuilder.Entity<Meal>().HasData(
                 new Meal()
@@ -133,11 +152,17 @@ namespace NetHealthServer.Data.Context
             {
                 Id = 2,
                 Name = "first_up",
-                ActionId = 1,
+                ActionId = 2,
 
             };
             modelBuilder.Entity<NutritionProgram>().HasData(
-                nutritionProgram
+                nutritionProgram,
+                new NutritionProgram()
+                {
+                    Id=3,
+                    Name="first_down",
+                    ActionId = 1
+                }
 
                 );
 

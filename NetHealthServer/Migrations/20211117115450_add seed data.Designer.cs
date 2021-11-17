@@ -9,8 +9,8 @@ using NetHealthServer.Data.Context;
 namespace NetHealthServer.Migrations
 {
     [DbContext(typeof(NetHealthDbContext))]
-    [Migration("20211116183117_adding seed data")]
-    partial class addingseeddata
+    [Migration("20211117115450_add seed data")]
+    partial class addseeddata
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,12 +68,12 @@ namespace NetHealthServer.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "up"
+                            Name = "Loose Weight"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "down"
+                            Name = "Gain Weight"
                         });
                 });
 
@@ -100,8 +100,14 @@ namespace NetHealthServer.Migrations
                         new
                         {
                             Id = 2,
-                            Name = "monday_first_menu",
-                            WeekDay = (short)2
+                            Name = "wednesday_gain_menu",
+                            WeekDay = (short)3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "wednesday_loose_menu",
+                            WeekDay = (short)3
                         });
                 });
 
@@ -250,8 +256,14 @@ namespace NetHealthServer.Migrations
                         new
                         {
                             Id = 2,
-                            ActionId = 1,
+                            ActionId = 2,
                             Name = "first_up"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ActionId = 1,
+                            Name = "first_down"
                         });
                 });
 
@@ -374,6 +386,26 @@ namespace NetHealthServer.Migrations
                         {
                             DietId = 2,
                             MealId = 10
+                        },
+                        new
+                        {
+                            DietId = 3,
+                            MealId = 7
+                        },
+                        new
+                        {
+                            DietId = 3,
+                            MealId = 8
+                        },
+                        new
+                        {
+                            DietId = 3,
+                            MealId = 9
+                        },
+                        new
+                        {
+                            DietId = 3,
+                            MealId = 10
                         });
                 });
 
@@ -396,6 +428,11 @@ namespace NetHealthServer.Migrations
                         {
                             DietId = 2,
                             NutritionProgramId = 2
+                        },
+                        new
+                        {
+                            DietId = 3,
+                            NutritionProgramId = 3
                         });
                 });
 

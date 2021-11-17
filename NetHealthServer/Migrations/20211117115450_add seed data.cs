@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NetHealthServer.Migrations
 {
-    public partial class addingseeddata : Migration
+    public partial class addseeddata : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -292,14 +292,18 @@ namespace NetHealthServer.Migrations
                 columns: new[] { "id", "name" },
                 values: new object[,]
                 {
-                    { 1, "up" },
-                    { 2, "down" }
+                    { 1, "Loose Weight" },
+                    { 2, "Gain Weight" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Diet",
                 columns: new[] { "id", "name", "week_day" },
-                values: new object[] { 2, "monday_first_menu", (short)2 });
+                values: new object[,]
+                {
+                    { 2, "wednesday_gain_menu", (short)3 },
+                    { 3, "wednesday_loose_menu", (short)3 }
+                });
 
             migrationBuilder.InsertData(
                 table: "Meals",
@@ -315,7 +319,11 @@ namespace NetHealthServer.Migrations
             migrationBuilder.InsertData(
                 table: "Nutrition_program",
                 columns: new[] { "id", "action_id", "name" },
-                values: new object[] { 2, 1, "first_up" });
+                values: new object[,]
+                {
+                    { 3, 1, "first_down" },
+                    { 2, 2, "first_up" }
+                });
 
             migrationBuilder.InsertData(
                 table: "diets_meals",
@@ -323,10 +331,19 @@ namespace NetHealthServer.Migrations
                 values: new object[,]
                 {
                     { 2, 7 },
+                    { 3, 7 },
                     { 2, 8 },
+                    { 3, 8 },
                     { 2, 9 },
-                    { 2, 10 }
+                    { 3, 9 },
+                    { 2, 10 },
+                    { 3, 10 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "nutrutions_diets",
+                columns: new[] { "DietId", "NutritionProgramId" },
+                values: new object[] { 3, 3 });
 
             migrationBuilder.InsertData(
                 table: "nutrutions_diets",

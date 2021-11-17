@@ -17,7 +17,7 @@ namespace NetHealthServer.Model
         public string ImageUrl { get; set; }
         
         public string MealUrl { get; set; }
-        public decimal Porsion { get; set; }
+        public decimal Portion { get; set; }
 
     }
 }

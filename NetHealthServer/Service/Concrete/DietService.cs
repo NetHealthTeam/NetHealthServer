@@ -19,7 +19,7 @@ namespace NetHealthServer.Service.Concrete
         {
             this.nutritionRepo = nutritionRepo;
         }
-        public async Task<DietResponse> GetDailyDiet(User user)
+        public Task<DietResponse> GetDailyDiet(User user)
         {
             var nutrition = user.NutritProgram;
             if (nutrition == null)
@@ -68,7 +68,7 @@ namespace NetHealthServer.Service.Concrete
                         TimeOfDay=meal.TimeOfDay,
                         ImageUrl=meal.ImageUrl,
                         MealUrl=meal.MealUrl,
-                        Porsion= Math.Round((user.AmountOfCalories * percentageOfMeal) / meal.Calory * 2, MidpointRounding.AwayFromZero) / 2
+                        Portion= Math.Round((user.AmountOfCalories * percentageOfMeal) / meal.Calory * 2, MidpointRounding.AwayFromZero) / 2
 
                     };
                     mealModels.Add(mealModel);
@@ -96,7 +96,7 @@ namespace NetHealthServer.Service.Concrete
                         TimeOfDay = meal.TimeOfDay,
                         ImageUrl = meal.ImageUrl,
                         MealUrl = meal.MealUrl,
-                        Porsion = Math.Round((user.AmountOfCalories * percentageOfMeal) / meal.Calory * 2, MidpointRounding.AwayFromZero) / 2 
+                        Portion = Math.Round((user.AmountOfCalories * percentageOfMeal) / meal.Calory * 2, MidpointRounding.AwayFromZero) / 2 
 
                     };
                     mealModels.Add(mealModel);
@@ -106,7 +106,7 @@ namespace NetHealthServer.Service.Concrete
 
             DietResponse dietResponse = new DietResponse();
             dietResponse.Meals = mealModels;
-            return dietResponse;
+            return Task.FromResult(dietResponse);
         }
     }
 }
