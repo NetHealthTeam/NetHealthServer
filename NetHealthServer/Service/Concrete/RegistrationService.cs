@@ -64,7 +64,7 @@ namespace NetHealthServer.Service.Concrete
         private  Task<decimal> CalculateDailyCalory(RegistrationRequest registrationRequest)
         {
             decimal bmr = 0;
-            bmr = 10 * registrationRequest.Weight + (decimal)6.25 * registrationRequest.Height * 100 - 5 * registrationRequest.Age;
+            bmr = 10 * registrationRequest.Weight + (decimal)6.25 * registrationRequest.Height  - 5 * registrationRequest.Age;
             if (registrationRequest.Gender=="Male")
             {
                 bmr += 5;
