@@ -13,9 +13,10 @@ namespace NetHealthServer.Data.Entities
         public int Id { get; set; }
         [Column("name")]
         public string Name { get; set; }
-        [Column("calory")]
-
-        public decimal Calory { get; set; }
+        [Column("calory_per_hour")]
+        public string CaloryPerHour { get; set; }
+        [Column("image_url")]
+        public string ImageUrl { get; set; }
         public List<Workout> Workouts { get; set; }
     }
 }

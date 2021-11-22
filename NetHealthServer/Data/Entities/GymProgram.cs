@@ -9,6 +9,11 @@ namespace NetHealthServer.Data.Entities
     [Table("Gym_program")]
     public class GymProgram
     {
+        public GymProgram()
+        {
+            Workouts = new List<Workout>();
+        }
+        
         [Column("id")]
         public int Id { get; set; }
         [Column("name")]

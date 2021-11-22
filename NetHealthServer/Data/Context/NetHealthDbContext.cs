@@ -165,6 +165,50 @@ namespace NetHealthServer.Data.Context
                 }
 
                 );
+            modelBuilder.Entity<Exercise>().HasData(
+                new Exercise()
+                {
+                    Id=1,
+                    Name= "Jumping Rope",
+                    CaloryPerHour="667-990",
+                    ImageUrl= "https://static.toiimg.com/photo/71956822.cms"
+                },
+                new Exercise()
+                {
+                    Id = 2,
+                    Name = "Running",
+                    CaloryPerHour = "566-839",
+                    ImageUrl = "https://post.healthline.com/wp-content/uploads/2020/01/Runner-training-on-running-track-732x549-thumbnail.jpg"
+                },
+                new Exercise()
+                {
+                    Id = 3,
+                    Name = "Cycling",
+                    CaloryPerHour = "568-841",
+                    ImageUrl = "https://cdn.mos.cms.futurecdn.net/M825uvxzJE2MDmqSfFb7PY.jpg"
+                },
+                new Exercise()
+                {
+                    Id = 4,
+                    Name = "Stairs",
+                    CaloryPerHour = "452-670",
+                    ImageUrl = "https://www.muscleandfitness.com/wp-content/uploads/2019/06/man-running-stairs-1109.jpg?w=940&h=529&crop=1&quality=86&strip=all"
+                },
+                 new Exercise()
+                 {
+                     Id = 5,
+                     Name = "Running Up Hills",
+                     CaloryPerHour = "639-946",
+                     ImageUrl = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/766/runninguphill-1501799541.jpg"
+                 },
+                  new Exercise()
+                  {
+                      Id = 6,
+                      Name = "Yoga",
+                      CaloryPerHour = "226-335",
+                      ImageUrl = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/766/runninguphill-1501799541.jpg"
+                  }
+                );
 
 
 

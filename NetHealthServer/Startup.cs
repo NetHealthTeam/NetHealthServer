@@ -51,6 +51,15 @@ namespace NetHealthServer
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<INutritionRepo, NutritionRepo>();
             services.AddScoped<IDietService, DietService>();
+            services.AddScoped<IGymService, GymService>();
+            services.AddScoped<IGymRepo, GymRepo>();
+            services.AddScoped<IWorkoutRepo, WorkoutRepo>();
+            services.AddScoped<IWorkoutService, WorkoutService>();
+            services.AddScoped<IExerciseRepo, ExerciseRepo>();
+
+
+
+
 
             services.AddAuthentication(x =>
             {

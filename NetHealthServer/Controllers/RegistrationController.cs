@@ -16,17 +16,22 @@ namespace NetHealthServer.Controllers
     public class RegistrationController : ControllerBase
     {
         private readonly IRegistrationService registration;
+        private readonly IGymService gymService;
 
-        public RegistrationController(IRegistrationService registration)
+        public RegistrationController(IRegistrationService registration,IGymService gymService)
         {
             this.registration = registration;
+            this.gymService = gymService;
         }
         [HttpPost("registration")]
         public async Task<ApiResponse> Registration(RegistrationRequest registrationRequest)
         {
             if (ModelState.IsValid)
             {
-                await registration.CreateUser(registrationRequest);
+               var user= await registration.CreateUser(registrationRequest);
+                
+
+
 
             }
             return new ApiResponse();

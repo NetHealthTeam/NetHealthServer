@@ -17,12 +17,16 @@ namespace NetHealthServer.Service.Concrete
         private readonly IRegistrationRepo registrationRepo;
         private readonly IJwtAuthenticationManager authenticationManager;
         private readonly INutritionRepo nutritionRepo;
+        private readonly IGymService gymService;
+        private readonly IWorkoutService workoutService;
 
-        public RegistrationService(IRegistrationRepo registrationRepo, IJwtAuthenticationManager authenticationManager,INutritionRepo nutritionRepo)
+        public RegistrationService(IRegistrationRepo registrationRepo, IJwtAuthenticationManager authenticationManager,INutritionRepo nutritionRepo,IGymService gymService,IWorkoutService workoutService)
         {
             this.registrationRepo = registrationRepo;
             this.authenticationManager = authenticationManager;
             this.nutritionRepo = nutritionRepo;
+            this.gymService = gymService;
+            this.workoutService = workoutService;
         }
 
         public async Task<LoginResponse> Login(LoginRequest login)
@@ -35,13 +39,16 @@ namespace NetHealthServer.Service.Concrete
 
         }
 
-        public async Task CreateUser(RegistrationRequest registrationRequest)
+        public async Task<User> CreateUser(RegistrationRequest registrationRequest)
         {
             await registrationRepo.CheckEmailExistence(registrationRequest.Email);
             var hashedPassword = new PasswordHasher<object?>().HashPassword(null, registrationRequest.Password);
             var actionId = await registrationRepo.GetActionId(registrationRequest.ActionName);
             var dailyCalory = await  CalculateDailyCalory(registrationRequest);
             var nutritionProgram = await nutritionRepo.GetNutritionProgram(actionId);
+            var workouts = await workoutService.GenerateWorkouts(registrationRequest);
+            var gymProgram = await gymService.GenerateGymProgram(registrationRequest.Email,workouts);
+           
             User user = new User()
             {
                 Email = registrationRequest.Email,
@@ -57,9 +64,11 @@ namespace NetHealthServer.Service.Concrete
                 ActionId=actionId,
                 NutritionProgramId=nutritionProgram.Id,
                 NutritProgram=nutritionProgram,
-                GymProgramId=null,     
+                GymProgramId=gymProgram.Id,     
             };
+
             await registrationRepo.CreateUser(user);
+            return user;
         }
         private  Task<decimal> CalculateDailyCalory(RegistrationRequest registrationRequest)
         {

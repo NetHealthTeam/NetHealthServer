@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetHealthServer.Data.Context;
 
 namespace NetHealthServer.Migrations
 {
     [DbContext(typeof(NetHealthDbContext))]
-    partial class NetHealthDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211121181208_seed data to exercise")]
+    partial class seeddatatoexercise
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,7 +175,7 @@ namespace NetHealthServer.Migrations
                             Id = 6,
                             CaloryPerHour = "226-335",
                             ImageUrl = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/766/runninguphill-1501799541.jpg",
-                            Name = "Yoga"
+                            Name = "Running Up Hills"
                         });
                 });
 
