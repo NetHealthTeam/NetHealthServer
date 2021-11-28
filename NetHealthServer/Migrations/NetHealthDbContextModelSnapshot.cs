@@ -98,14 +98,50 @@ namespace NetHealthServer.Migrations
                         new
                         {
                             Id = 2,
-                            Name = "wednesday_gain_menu",
-                            WeekDay = (short)3
+                            Name = "sunday_gain_menu",
+                            WeekDay = (short)0
                         },
                         new
                         {
                             Id = 3,
-                            Name = "wednesday_loose_menu",
+                            Name = "sunday_loose_menu",
+                            WeekDay = (short)0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "friday_menu",
+                            WeekDay = (short)5
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "monday_menu",
+                            WeekDay = (short)1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "tuesday_menu",
+                            WeekDay = (short)2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "wednesday_menu",
                             WeekDay = (short)3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "thursday_menu",
+                            WeekDay = (short)4
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "saturday_menu",
+                            WeekDay = (short)6
                         });
                 });
 
@@ -273,6 +309,76 @@ namespace NetHealthServer.Migrations
                             ImageUrl = "https://images.eatthismuch.com/site_media/img/45207_tabitharwheeler_50bb20bd-abb6-4373-90d6-dece7b636b16.jpg",
                             MealUrl = "https://www.eatthismuch.com/recipe/nutrition/perfect-steamed-rice,45207/",
                             Name = "Perfect Steamed Rice",
+                            TimeOfDay = (short)3
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Amount = "118",
+                            Calory = 105m,
+                            ImageUrl = "https://images.eatthismuch.com/site_media/img/474253_basic_bob_21d66729-46e1-4bbb-9a8d-5fad23bcc7da.png",
+                            MealUrl = "https://www.eatthismuch.com/recipe/nutrition/banana,474253/",
+                            Name = "Banana",
+                            TimeOfDay = (short)1
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Amount = "549",
+                            Calory = 549m,
+                            ImageUrl = "https://images.eatthismuch.com/site_media/img/905711_tabitharwheeler_5e5c1d26-e56a-45af-a35b-fabae62f3ad6.jpg",
+                            MealUrl = "https://www.eatthismuch.com/recipe/nutrition/basic-eggs,905711/",
+                            Name = "Basic eggs",
+                            TimeOfDay = (short)1
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Amount = "3",
+                            Calory = 267m,
+                            ImageUrl = "https://images.eatthismuch.com/site_media/img/3128_purela42_84cfb4f5-9840-4b64-a7fe-6bb9db4ef06d.jpg",
+                            MealUrl = "https://www.eatthismuch.com/food/nutrition/coffee,3128/",
+                            Name = "Cofee",
+                            TimeOfDay = (short)1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Amount = "168",
+                            Calory = 154.6m,
+                            ImageUrl = "https://images.eatthismuch.com/site_media/img/4778_cyberchristie_6edef096-491d-4559-8df0-3281552ba4af.png",
+                            MealUrl = "https://www.eatthismuch.com/food/nutrition/buckwheat-groats,4778/",
+                            Name = "Buckwheat groats",
+                            TimeOfDay = (short)3
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Amount = "236",
+                            Calory = 403m,
+                            ImageUrl = "https://images.eatthismuch.com/site_media/img/924599_tabitharwheeler_e7e37141-b60b-4e5c-aa96-450f95c885a1.jpg",
+                            MealUrl = "https://www.eatthismuch.com/recipe/nutrition/pan-seared-chicken-breast,924599/",
+                            Name = "Pan Seared Chicken Breast",
+                            TimeOfDay = (short)3
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Amount = "108",
+                            Calory = 259m,
+                            ImageUrl = "https://images.eatthismuch.com/site_media/img/34087_tabitharwheeler_694ccccd-bc5c-4327-9a3f-b9ab68e9e4e7.jpg",
+                            MealUrl = "https://www.eatthismuch.com/recipe/nutrition/seared-strip-steak,34087/",
+                            Name = "Seared strip steak",
+                            TimeOfDay = (short)2
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Amount = "198",
+                            Calory = 728m,
+                            ImageUrl = "https://images.eatthismuch.com/site_media/img/33535_erin_m_7a05b91d-4e78-4067-ba72-b02fb234e649.png",
+                            MealUrl = "https://www.eatthismuch.com/recipe/nutrition/panfried-steak-with-garlic-butter,33535/",
+                            Name = "Panfried steak with garlic butter",
                             TimeOfDay = (short)3
                         });
                 });
@@ -460,6 +566,126 @@ namespace NetHealthServer.Migrations
                         {
                             DietId = 3,
                             MealId = 10
+                        },
+                        new
+                        {
+                            DietId = 4,
+                            MealId = 17
+                        },
+                        new
+                        {
+                            DietId = 4,
+                            MealId = 8
+                        },
+                        new
+                        {
+                            DietId = 4,
+                            MealId = 13
+                        },
+                        new
+                        {
+                            DietId = 4,
+                            MealId = 10
+                        },
+                        new
+                        {
+                            DietId = 5,
+                            MealId = 7
+                        },
+                        new
+                        {
+                            DietId = 5,
+                            MealId = 13
+                        },
+                        new
+                        {
+                            DietId = 5,
+                            MealId = 8
+                        },
+                        new
+                        {
+                            DietId = 5,
+                            MealId = 11
+                        },
+                        new
+                        {
+                            DietId = 6,
+                            MealId = 16
+                        },
+                        new
+                        {
+                            DietId = 6,
+                            MealId = 8
+                        },
+                        new
+                        {
+                            DietId = 6,
+                            MealId = 9
+                        },
+                        new
+                        {
+                            DietId = 6,
+                            MealId = 12
+                        },
+                        new
+                        {
+                            DietId = 7,
+                            MealId = 7
+                        },
+                        new
+                        {
+                            DietId = 7,
+                            MealId = 8
+                        },
+                        new
+                        {
+                            DietId = 7,
+                            MealId = 13
+                        },
+                        new
+                        {
+                            DietId = 7,
+                            MealId = 11
+                        },
+                        new
+                        {
+                            DietId = 8,
+                            MealId = 16
+                        },
+                        new
+                        {
+                            DietId = 8,
+                            MealId = 13
+                        },
+                        new
+                        {
+                            DietId = 8,
+                            MealId = 8
+                        },
+                        new
+                        {
+                            DietId = 8,
+                            MealId = 14
+                        },
+                        new
+                        {
+                            DietId = 9,
+                            MealId = 7
+                        },
+                        new
+                        {
+                            DietId = 9,
+                            MealId = 8
+                        },
+                        new
+                        {
+                            DietId = 9,
+                            MealId = 13
+                        },
+                        new
+                        {
+                            DietId = 9,
+                            MealId = 14
                         });
                 });
 
@@ -487,6 +713,66 @@ namespace NetHealthServer.Migrations
                         {
                             DietId = 3,
                             NutritionProgramId = 3
+                        },
+                        new
+                        {
+                            DietId = 4,
+                            NutritionProgramId = 3
+                        },
+                        new
+                        {
+                            DietId = 4,
+                            NutritionProgramId = 2
+                        },
+                        new
+                        {
+                            DietId = 5,
+                            NutritionProgramId = 3
+                        },
+                        new
+                        {
+                            DietId = 5,
+                            NutritionProgramId = 2
+                        },
+                        new
+                        {
+                            DietId = 6,
+                            NutritionProgramId = 3
+                        },
+                        new
+                        {
+                            DietId = 6,
+                            NutritionProgramId = 2
+                        },
+                        new
+                        {
+                            DietId = 7,
+                            NutritionProgramId = 3
+                        },
+                        new
+                        {
+                            DietId = 7,
+                            NutritionProgramId = 2
+                        },
+                        new
+                        {
+                            DietId = 8,
+                            NutritionProgramId = 3
+                        },
+                        new
+                        {
+                            DietId = 8,
+                            NutritionProgramId = 2
+                        },
+                        new
+                        {
+                            DietId = 9,
+                            NutritionProgramId = 3
+                        },
+                        new
+                        {
+                            DietId = 9,
+                            NutritionProgramId = 2
                         });
                 });
 

@@ -19,14 +19,14 @@ namespace NetHealthServer.Service.Concrete
         {
             this.nutritionRepo = nutritionRepo;
         }
-        public Task<DietResponse> GetDailyDiet(User user)
+        public Task<DietResponse> GetDailyDiet(User user,int? weekDay)
         {
             var nutrition = user.NutritProgram;
             if (nutrition == null)
             {
                 throw new CustomError("nutrition_not_found");
             }
-            var dayOfWeek =(int) DateTime.Now.DayOfWeek;
+            var dayOfWeek = weekDay;
             var diets = nutrition.Diets.FirstOrDefault(x => x.WeekDay == dayOfWeek);
             if (diets == null)
             {
@@ -61,15 +61,20 @@ namespace NetHealthServer.Service.Concrete
                          meal = meals.LastOrDefault(x => x.TimeOfDay == timeOfDay);
 
                     }
-
-                    MealModel mealModel = new MealModel() { 
+                    var tempPortion= (user.AmountOfCalories * percentageOfMeal) / meal.Calory ;
+                    if(tempPortion>0 && tempPortion < (decimal)0.5)
+                    {
+                        tempPortion =(decimal) 0.5;
+                    }
+                    tempPortion *= 2;
+                     MealModel mealModel = new MealModel() { 
                         Id=meal.Id,
                         Name=meal.Name,
                         CaloryPerPorsion=meal.Calory,
                         TimeOfDay=meal.TimeOfDay,
                         ImageUrl=meal.ImageUrl,
                         MealUrl=meal.MealUrl,
-                        Portion= Math.Round((user.AmountOfCalories * percentageOfMeal) / meal.Calory * 2, MidpointRounding.AwayFromZero) / 2
+                        Portion= Math.Round(tempPortion, MidpointRounding.AwayFromZero) / 2
 
                     };
                     mealModels.Add(mealModel);
@@ -109,6 +114,11 @@ namespace NetHealthServer.Service.Concrete
             DietResponse dietResponse = new DietResponse();
             dietResponse.Meals = mealModels;
             return Task.FromResult(dietResponse);
+        }
+
+        public Task<DietResponse> GetDailyDietFromMessage(User user, Diet diet)
+        {
+            throw new NotImplementedException();
         }
     }
 }

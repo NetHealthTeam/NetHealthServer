@@ -12,5 +12,6 @@ namespace NetHealthServer.Service.Abstract
         public Task<GymProgram> GenerateGymProgram(string email,List<Workout> workouts);
         public Task<GymProgram> GetDailyGymProgram(string name);
         public Task<List<GymResponse>> GetDailyGymProgramByUser(User user);
+        public Task<List<GymResponse>> GetGymProgram(User user, int? weekDay);
     }
 }

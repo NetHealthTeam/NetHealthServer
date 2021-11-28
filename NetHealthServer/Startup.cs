@@ -37,7 +37,7 @@ namespace NetHealthServer
         {
             services.AddControllers();
             services.AddDbContextPool<NetHealthDbContext>(options => options.UseMySql(
-                "server=localhost;database=nethealthdatabase;user=root;password=root;port=3306;Connect Timeout=5;",
+                "server=localhost;database=nethealthdatabasethird;user=root;password=root;port=3306;Connect Timeout=5;",
             new MySqlServerVersion(new Version(8, 0, 11)))
 
                 );
@@ -56,6 +56,7 @@ namespace NetHealthServer
             services.AddScoped<IWorkoutRepo, WorkoutRepo>();
             services.AddScoped<IWorkoutService, WorkoutService>();
             services.AddScoped<IExerciseRepo, ExerciseRepo>();
+            services.AddScoped<IChatBoxService, ChatBoxService>();
 
 
 

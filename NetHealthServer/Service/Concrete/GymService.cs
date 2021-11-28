@@ -64,5 +64,33 @@ namespace NetHealthServer.Service.Concrete
             }
             return gymResponses;
         }
+
+        public async Task<List<GymResponse>> GetGymProgram(User user, int? weekDay)
+        {
+            var gymProgram = await gymRepo.GetDailyGymProgramById(user.GymProgramId);
+            var workout = gymProgram.Workouts.FirstOrDefault(x => x.WeekDay == weekDay);
+            var exercises = workout.Exercises;
+            List<GymResponse> gymResponses = new List<GymResponse>();
+
+            foreach (var exercise in exercises)
+            {
+
+                GymResponse gymResponse = new GymResponse()
+                {
+                    Id = exercise.Id,
+                    Name = exercise.Name,
+                    ImageUrl = exercise.ImageUrl,
+                    CaloriePerHour = exercise.CaloryPerHour,
+                    Duration = workout.MinutePerExercise,
+                    Weekday = workout.WeekDay
+
+
+
+                };
+                gymResponses.Add(gymResponse);
+
+            }
+            return gymResponses;
+        }
     }
 }

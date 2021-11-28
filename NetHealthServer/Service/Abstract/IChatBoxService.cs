@@ -1,4 +1,5 @@
 ﻿using NetHealthServer.Data.Entities;
+using NetHealthServer.Model.Request;
 using NetHealthServer.Model.Response;
 using System;
 using System.Collections.Generic;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace NetHealthServer.Service.Abstract
 {
-   public interface IDietService
+    public interface IChatBoxService
     {
-        public Task<DietResponse> GetDailyDiet(User user,int? weekDay);
-        public Task<DietResponse> GetDailyDietFromMessage(User user, Diet diet);
+        public Task<ChatBoxResponse> GetChatBoxResponse(ChatBoxRequest chatBoxRequest,User user);
+
     }
 }

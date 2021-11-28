@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NetHealthServer.Model.Request;
 using NetHealthServer.Model.Response;
+using NetHealthServer.Response;
 using NetHealthServer.Service.Abstract;
 using System;
 using System.Collections.Generic;
@@ -13,24 +15,25 @@ namespace NetHealthServer.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class DietController : ControllerBase
+    
+    public class ChatBoxController : ControllerBase
     {
+        private readonly IChatBoxService chatBoxService;
         private readonly IUserService userService;
-        private readonly IDietService dietService;
 
-        public DietController(IUserService userService,IDietService dietService)
+        public ChatBoxController(IChatBoxService chatBoxService,IUserService userService)
         {
+            this.chatBoxService = chatBoxService;
             this.userService = userService;
-            this.dietService = dietService;
         }
-        [HttpGet("getdailydiet")]
-        public async Task<DietResponse> GetDiet()
+        [HttpPost("getinfo")]
+        public async Task<ApiValueResponse<ChatBoxResponse>> GetInfo(ChatBoxRequest chatBoxRequest)
         {
             var email = User.Identity.Name;
             var user = await userService.GetUser(email);
-            var today =(int) DateTime.Now.DayOfWeek;
-            var result = await dietService.GetDailyDiet(user,today);
-            return result;
+           var result=  await chatBoxService.GetChatBoxResponse(chatBoxRequest,user);
+            return new ApiValueResponse<ChatBoxResponse>(result);
         }
+
     }
 }
