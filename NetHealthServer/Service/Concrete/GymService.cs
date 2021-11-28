@@ -67,10 +67,16 @@ namespace NetHealthServer.Service.Concrete
 
         public async Task<List<GymResponse>> GetGymProgram(User user, int? weekDay)
         {
+            List<GymResponse> gymResponses = new List<GymResponse>();
+
             var gymProgram = await gymRepo.GetDailyGymProgramById(user.GymProgramId);
             var workout = gymProgram.Workouts.FirstOrDefault(x => x.WeekDay == weekDay);
+            if (workout == null)
+            {
+                return gymResponses;
+
+            }
             var exercises = workout.Exercises;
-            List<GymResponse> gymResponses = new List<GymResponse>();
 
             foreach (var exercise in exercises)
             {
